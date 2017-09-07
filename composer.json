@@ -1,0 +1,11 @@
+{
+    "name": "radvance/migrate-fw",
+    "description": "A process of migrating from Radvance specified firewalls to app specified ones.",
+    "license": "MIT",
+    "require": {
+        "codito/silex-console-provider": "^2.0"
+    },
+    "bin": [
+        "bin/routes"
+    ]
+}

@@ -1,0 +1,45 @@
+#!/usr/bin/env php
+<?php
+
+# This is a single command console app.
+# Usage: routes r:d --show-controllers
+# Help: routes help r:d
+
+$autoloadFiles = [
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . '/../../../autoload.php',
+];
+foreach ($autoloadFiles as $autoloadFile) {
+    if (file_exists($autoloadFile)) {
+        require_once $autoloadFile;
+    }
+}
+
+if (!class_exists('\Codito\Silex\Provider\ConsoleServiceProvider'))
+    die("Stop!\nI need 'composer require --dev \"codito/silex-console-provider ^2.0\"'.\n");
+
+$app = null;
+$bootstrapFiles = [
+    __DIR__ . '/../../../../app/bootstrap.php',
+];
+foreach ($bootstrapFiles as $bootstrapFile) {
+    if (file_exists($bootstrapFile)) {
+        require_once $bootstrapFile;
+        break;
+    }
+}
+
+if (!$app)
+    die("Stop!\nI cannot find a bootstrap file to provide me with a Radvance app.\n");
+
+$app->register(
+    new \Codito\Silex\Provider\ConsoleServiceProvider,
+    [
+        'console.name' => 'Router Dumper for Radvance Apps',
+        'console.version' => '0.0.1',
+    ]
+);
+
+$app['console']->add(new \Codito\Silex\Console\Command\RouterDebugCommand);
+$app['console']->setDefaultCommand('router:debug', true);
+$app['console']->run();
