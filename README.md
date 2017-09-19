@@ -207,7 +207,7 @@ route belongs and add it to a list of route paths for the category.
 
 These questions are summarised in the following flow chart.
 
-![Flow chart](doc/firewall-migration-flowchart.png)
+![Flow chart](firewall-migration-flowchart.png)
 
 
 ### 3. Construct firewalls and override BaseWebApplication::getFirewalls
